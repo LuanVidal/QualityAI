@@ -17,6 +17,14 @@
 
 ---
 
+## Integrantes
+
+- Luan Gabriel Vidal da Silva
+- Marcio Alves
+- Thiago Mendes
+
+
+
 ## Visão geral
 
 O **QualityAI** é uma proposta de plataforma de inspeção visual para a indústria. Em vez de exigir programação ou conhecimento especializado em inteligência artificial, o sistema deverá permitir que um inspetor de qualidade crie um projeto, forneça imagens de referência e treine um classificador para uma determinada peça.
