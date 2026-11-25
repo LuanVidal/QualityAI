@@ -119,9 +119,9 @@ Antes de qualquer uso industrial, será necessário ampliar e diversificar o dat
 
 [Entrega EXPOUNA: software, validação, diagramas e banner](docs/entrega-expouna.md)
 
-[Banner 90 × 120 cm — UNA Barreiro](output/apresentacao/banner-qualityai-90x120.pdf) · [Infográfico de requisitos](output/apresentacao/analise-de-requisitos.pdf) · [Modelo do banco em português](output/apresentacao/entidade-relacionamento.pdf)
+[Banner 90 × 120 cm — modelo UNA fornecido](output/apresentacao/banner-qualityai-modelo-UNA-90x120.pdf) · [Infográfico de requisitos](output/apresentacao/analise-de-requisitos.pdf) · [Modelo do banco em português](output/apresentacao/entidade-relacionamento.pdf)
 
-![Banner QualityAI para a EXPOUNA](output/apresentacao/banner-qualityai-90x120.png)
+![Banner QualityAI para a EXPOUNA](output/apresentacao/banner-qualityai-modelo-UNA-90x120.png)
 
 Os documentos do projeto estão reunidos em:
 
