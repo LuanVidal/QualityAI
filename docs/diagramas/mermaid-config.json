@@ -1,0 +1,21 @@
+{
+  "theme": "base",
+  "themeVariables": {
+    "background": "#071827",
+    "primaryColor": "#0b2d4a",
+    "primaryTextColor": "#f4fbff",
+    "primaryBorderColor": "#00c3b2",
+    "lineColor": "#2aa8c7",
+    "secondaryColor": "#0b2238",
+    "tertiaryColor": "#092039",
+    "fontFamily": "Poppins, Segoe UI, sans-serif"
+  },
+  "er": {
+    "diagramPadding": 24,
+    "layoutDirection": "TB",
+    "minEntityWidth": 150,
+    "minEntityHeight": 75,
+    "entityPadding": 14,
+    "useMaxWidth": true
+  }
+}

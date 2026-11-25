@@ -1,17 +1,17 @@
 <div align="center">
 
-# 🏭 QualityAI
+<img src="qualityai/assets/qualityai-logo.png" alt="QualityAI" width="300">
 
-### Inspeção visual industrial simples, configurável e autotreinável
+### Inspeção visual industrial local, configurável e autotreinável
 
-[![Status](https://img.shields.io/badge/status-concepção-2563EB?style=for-the-badge)](#status-do-projeto)
+[![Status](https://img.shields.io/badge/status-protótipo-2563EB?style=for-the-badge)](#status-do-projeto)
 [![Fase](https://img.shields.io/badge/fase-prova_de_conceito-F59E0B?style=for-the-badge)](#limites-da-prova-de-conceito)
 [![Classificação](https://img.shields.io/badge/saída-OK_%7C_NOK-16A34A?style=for-the-badge)](#como-funciona)
-[![Documentação](https://img.shields.io/badge/documentação-PT--BR-7C3AED?style=for-the-badge)](docs/etapas-1-e-2.md)
+[![Plataforma](https://img.shields.io/badge/plataforma-Windows_desktop-475569?style=for-the-badge)](docs/prototipo-desktop.md)
 
 **Ensine o sistema com exemplos reais da sua peça e use inteligência artificial para apoiar uma inspeção mais rápida, consistente e rastreável.**
 
-[Conheça o projeto](#visão-geral) · [Veja o fluxo](#como-funciona) · [Leia as Etapas 1 e 2](docs/etapas-1-e-2.md)
+[Conheça o projeto](#visão-geral) · [Instalação](#executar-o-protótipo) · [Guia do protótipo](docs/prototipo-desktop.md) · [Etapas 1 e 2](docs/etapas-1-e-2.md)
 
 </div>
 
@@ -23,15 +23,41 @@
 - Marcio Alves
 - Thiago Mendes
 
-
-
 ## Visão geral
 
-O **QualityAI** é uma proposta de plataforma de inspeção visual para a indústria. Em vez de exigir programação ou conhecimento especializado em inteligência artificial, o sistema deverá permitir que um inspetor de qualidade crie um projeto, forneça imagens de referência e treine um classificador para uma determinada peça.
+O **QualityAI** é um protótipo desktop de inspeção visual para a indústria. Ele funciona localmente em um notebook Windows, recebe imagens de uma webcam ou câmera USB e permite treinar um classificador sem exigir programação ou conhecimento especializado em inteligência artificial.
 
-Na prova de conceito, cada projeto começa com **10 imagens de peças conformes (`OK`)** e **10 imagens de peças não conformes (`NOK`)**. Após revisar os rótulos, o inspetor autoriza o treinamento e utiliza o modelo para classificar novas imagens.
+Na prova de conceito, cada projeto começa com **10 imagens de peças conformes (`OK`)** e **10 imagens de peças não conformes (`NOK`)**. O usuário delimita uma região de interesse, configura filtros, revisa as imagens e treina um modelo leve para classificar novas capturas.
 
 > O QualityAI foi pensado como uma ferramenta de **apoio à decisão**. A responsabilidade pela liberação de uma peça continua sendo humana, especialmente quando o modelo apresentar baixa confiança.
+
+## Recursos do protótipo
+
+- Interface desktop moderna em PySide6, com a identidade visual oficial do QualityAI e funcionamento offline.
+- Receitas independentes por tipo de peça, cada uma com descrição, dataset, ROI, filtros e modelo próprios.
+- Captura manual por webcam ou câmera USB, com prévia espelhada para facilitar o posicionamento da peça.
+- Delimitação visual da região de interesse (ROI) pelo mouse.
+- Filtros de CLAHE, escala de cinza, redução de ruído, nitidez, brilho e contraste.
+- Importação de imagens existentes para as classes `OK` e `NOK`.
+- Treinamento leve com MobileNetV3-Small congelada e classificador linear.
+- Validação cruzada estratificada e métricas de acurácia balanceada, F1 e ROC AUC.
+- Resultado `OK`, `NOK` ou `REVISÃO`, acompanhado de confiança e versão do modelo.
+- Armazenamento somente no notebook, sem envio de imagens para a nuvem.
+- Troca rápida de receita e limpeza protegida do dataset, com arquivamento do modelo anterior.
+
+## Executar o protótipo
+
+Requisitos: Windows 10/11, Python 3.11 e uma câmera compatível com o OpenCV.
+
+```powershell
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe run.py
+```
+
+No Windows, também é possível executar `instalar-qualityai.bat` uma vez e depois abrir `iniciar-qualityai.bat` com dois cliques.
+
+Na primeira execução do treinamento, o PyTorch pode baixar os pesos públicos da MobileNetV3-Small. Depois disso, o fluxo funciona localmente.
 
 ## Como funciona
 
@@ -68,8 +94,9 @@ flowchart LR
 
 ### Incluído na proposta
 
-- Criação de projetos para diferentes peças.
+- Projeto local principal, com dataset e modelo isolados no perfil do Windows.
 - Coleta de imagens por upload ou câmera/webcam.
+- ROI ajustável e pré-processamento reproduzível.
 - Dataset inicial com 10 exemplos `OK` e 10 exemplos `NOK`.
 - Treinamento iniciado manualmente após a revisão do inspetor.
 - Classificação binária de novas imagens.
@@ -90,22 +117,31 @@ Antes de qualquer uso industrial, será necessário ampliar e diversificar o dat
 
 ## Documentação
 
-As respostas completas solicitadas para a concepção do sistema estão reunidas em:
+[Entrega EXPOUNA: software, validação, diagramas e banner](docs/entrega-expouna.md)
+
+[Banner 90 × 120 cm — UNA Barreiro](output/apresentacao/banner-qualityai-90x120.pdf) · [Infográfico de requisitos](output/apresentacao/analise-de-requisitos.pdf) · [Modelo do banco em português](output/apresentacao/entidade-relacionamento.pdf)
+
+![Banner QualityAI para a EXPOUNA](output/apresentacao/banner-qualityai-90x120.png)
+
+Os documentos do projeto estão reunidos em:
 
 📘 **[Etapa 1 — Problema e contexto / Etapa 2 — Usuário e requisitos](docs/etapas-1-e-2.md)**
+
+🖥️ **[Protótipo desktop — câmera USB, ROI, filtros e treinamento](docs/prototipo-desktop.md)**
 
 O documento contém a persona, a jornada do usuário, os requisitos funcionais e não funcionais, os casos de uso, as regras de negócio e os critérios de aceitação da proposta.
 
 ## Status do projeto
 
-> **Fase atual:** concepção e documentação da prova de conceito.
+> **Fase atual:** protótipo desktop local em validação.
 
 | Marco | Estado |
 | --- | :---: |
 | Definição do problema e do público | ✅ Concluído |
 | Jornada, requisitos e casos de uso | ✅ Concluído |
-| Protótipo da interface | ⏳ Planejado |
-| Treinamento e classificação | ⏳ Planejado |
+| Protótipo da interface | ✅ Implementado |
+| Captura USB, ROI e filtros | ✅ Implementado |
+| Treinamento e classificação | ✅ Implementado |
 | Validação com imagens reais | ⏳ Planejado |
 
 ---

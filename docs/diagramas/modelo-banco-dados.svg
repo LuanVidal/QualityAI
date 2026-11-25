@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="960" viewBox="0 0 1600 960" role="img" aria-labelledby="title desc">
+  <title id="title">Modelo do banco de dados do QualityAI</title>
+  <desc id="desc">Diagrama entidade-relacionamento das receitas, datasets, imagens, treinamentos, modelos, inspeções, revisões humanas e auditoria.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071827"/>
+      <stop offset="1" stop-color="#0b2238"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#020b12" flood-opacity=".42"/>
+    </filter>
+    <style>
+      .title { font: 700 30px 'Poppins','Segoe UI',sans-serif; fill:#f4fbff }
+      .subtitle { font: 400 15px 'Poppins','Segoe UI',sans-serif; fill:#91b8ca }
+      .entity { fill:#0b2d4a; stroke:#1b6383; stroke-width:1.5; filter:url(#shadow) }
+      .head { fill:#0a5ca4 }
+      .head.green { fill:#008d78 }
+      .head.cyan { fill:#087995 }
+      .name { font: 700 17px 'Poppins','Segoe UI',sans-serif; fill:#fff; letter-spacing:.5px }
+      .field { font: 400 13px 'Poppins','Segoe UI',sans-serif; fill:#d8edf5 }
+      .key { font: 700 12px 'Poppins','Segoe UI',sans-serif; fill:#48ead2 }
+      .line { fill:none; stroke:#2aa8c7; stroke-width:2 }
+      .relation { font: 700 12px 'Poppins','Segoe UI',sans-serif; fill:#7fe8dd }
+      .note { fill:#081b2d; stroke:#18506b; stroke-width:1 }
+      .noteText { font: 400 13px 'Poppins','Segoe UI',sans-serif; fill:#b1ccd9 }
+    </style>
+  </defs>
+  <rect width="1600" height="960" rx="22" fill="url(#bg)"/>
+  <text x="55" y="58" class="title">QualityAI · Banco local SQLite</text>
+  <text x="55" y="88" class="subtitle">Metadados e rastreabilidade no banco · imagens e modelos permanecem no sistema de arquivos</text>
+
+  <!-- Relacionamentos -->
+  <path class="line" d="M800 264 L275 330"/>
+  <text x="500" y="282" class="relation">1 : N</text>
+  <path class="line" d="M800 264 L800 330"/>
+  <text x="812" y="305" class="relation">1 : N</text>
+  <path class="line" d="M920 264 L1270 330"/>
+  <text x="1080" y="282" class="relation">1 : N</text>
+  <path class="line" d="M1000 180 L1150 180"/>
+  <text x="1050" y="169" class="relation">1 : N</text>
+  <path class="line" d="M275 510 L275 650"/>
+  <text x="288" y="585" class="relation">1 : N</text>
+  <path class="line" d="M470 415 L600 415"/>
+  <text x="512" y="401" class="relation">1 : N</text>
+  <path class="line" d="M1000 415 L1120 415"/>
+  <text x="1032" y="401" class="relation">1 : 0..1</text>
+  <path class="line" d="M1320 530 L1320 650"/>
+  <text x="1333" y="596" class="relation">1 : N</text>
+  <path class="line" d="M1120 760 L1000 760"/>
+  <text x="1024" y="746" class="relation">1 : 0..1</text>
+  <path class="line" d="M500 790 L600 790"/>
+  <text x="523" y="776" class="relation">0..1 : N</text>
+
+  <!-- Receita -->
+  <g transform="translate(600 120)">
+    <rect class="entity" width="400" height="144" rx="12"/>
+    <path class="head green" d="M12 0 H388 Q400 0 400 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">RECEITAS</text>
+    <text x="20" y="72" class="key">PK  id</text>
+    <text x="20" y="96" class="field">name · part_type · description</text>
+    <text x="20" y="120" class="field">root_path · preprocessing_json</text>
+  </g>
+
+  <!-- Auditoria -->
+  <g transform="translate(1150 120)">
+    <rect class="entity" width="370" height="144" rx="12"/>
+    <path class="head cyan" d="M12 0 H358 Q370 0 370 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">AUDITORIA</text>
+    <text x="20" y="72" class="key">PK  id   ·   FK  recipe_id</text>
+    <text x="20" y="96" class="field">event_type · details_json</text>
+    <text x="20" y="120" class="field">created_at</text>
+  </g>
+
+  <!-- Dataset -->
+  <g transform="translate(80 330)">
+    <rect class="entity" width="390" height="180" rx="12"/>
+    <path class="head" d="M12 0 H378 Q390 0 390 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">VERSÕES DO DATASET</text>
+    <text x="20" y="72" class="key">PK  id   ·   FK  recipe_id</text>
+    <text x="20" y="98" class="field">version_number</text>
+    <text x="20" y="122" class="field">status: active | archived</text>
+    <text x="20" y="146" class="field">created_at · closed_at</text>
+  </g>
+
+  <!-- Treinamento -->
+  <g transform="translate(600 330)">
+    <rect class="entity" width="400" height="180" rx="12"/>
+    <path class="head" d="M12 0 H388 Q400 0 400 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">TREINAMENTOS</text>
+    <text x="20" y="72" class="key">PK  id   ·   FK  recipe_id, dataset_version_id</text>
+    <text x="20" y="98" class="field">status · total_images · folds</text>
+    <text x="20" y="122" class="field">metrics_json</text>
+    <text x="20" y="146" class="field">started_at · finished_at</text>
+  </g>
+
+  <!-- Modelos -->
+  <g transform="translate(1120 330)">
+    <rect class="entity" width="400" height="200" rx="12"/>
+    <path class="head green" d="M12 0 H388 Q400 0 400 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">VERSÕES DO MODELO</text>
+    <text x="20" y="72" class="key">PK  id   ·   FK  recipe, dataset, training</text>
+    <text x="20" y="98" class="field">file_path · model_type</text>
+    <text x="20" y="122" class="field">confidence_threshold</text>
+    <text x="20" y="146" class="field">metrics_json · active</text>
+    <text x="20" y="170" class="field">created_at · archived_at</text>
+  </g>
+
+  <!-- Imagens -->
+  <g transform="translate(80 650)">
+    <rect class="entity" width="420" height="224" rx="12"/>
+    <path class="head cyan" d="M12 0 H408 Q420 0 420 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">AMOSTRAS DE IMAGEM</text>
+    <text x="20" y="72" class="key">PK  id   ·   FK  recipe_id, dataset_version_id</text>
+    <text x="20" y="98" class="field">label: ok | nok · source</text>
+    <text x="20" y="122" class="field">file_path · sha256</text>
+    <text x="20" y="146" class="field">width · height</text>
+    <text x="20" y="170" class="field">captured_at · deleted_at</text>
+    <text x="20" y="200" class="subtitle">O arquivo permanece fora do SQLite</text>
+  </g>
+
+  <!-- Revisões -->
+  <g transform="translate(600 690)">
+    <rect class="entity" width="400" height="184" rx="12"/>
+    <path class="head green" d="M12 0 H388 Q400 0 400 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">REVISÕES HUMANAS</text>
+    <text x="20" y="72" class="key">PK  id   ·   FK  inspection_id</text>
+    <text x="20" y="98" class="field">human_label · corrected</text>
+    <text x="20" y="122" class="field">dataset_image_id</text>
+    <text x="20" y="146" class="field">reviewed_at</text>
+  </g>
+
+  <!-- Inspeções -->
+  <g transform="translate(1120 650)">
+    <rect class="entity" width="400" height="224" rx="12"/>
+    <path class="head" d="M12 0 H388 Q400 0 400 12 V48 H0 V12 Q0 0 12 0"/>
+    <text x="20" y="31" class="name">INSPEÇÕES</text>
+    <text x="20" y="72" class="key">PK  id   ·   FK  recipe_id, model_id</text>
+    <text x="20" y="98" class="field">file_path</text>
+    <text x="20" y="122" class="field">predicted_label · confidence</text>
+    <text x="20" y="146" class="field">requires_review</text>
+    <text x="20" y="170" class="field">created_at</text>
+    <text x="20" y="200" class="subtitle">Resultado sempre ligado à versão do modelo</text>
+  </g>
+
+  <g transform="translate(55 910)">
+    <rect class="note" width="1490" height="32" rx="8"/>
+    <text x="16" y="21" class="noteText">Fluxo rastreável: receita → versão do dataset → treinamento → modelo → inspeção → revisão humana → nova amostra</text>
+  </g>
+</svg>

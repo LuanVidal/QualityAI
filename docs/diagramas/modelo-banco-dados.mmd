@@ -1,0 +1,95 @@
+erDiagram
+    RECIPES ||--o{ DATASET_VERSIONS : versiona
+    RECIPES ||--o{ TRAINING_RUNS : executa
+    RECIPES ||--o{ MODEL_VERSIONS : possui
+    RECIPES ||--o{ INSPECTIONS : registra
+    RECIPES ||--o{ AUDIT_EVENTS : audita
+
+    DATASET_VERSIONS ||--o{ IMAGE_SAMPLES : contem
+    DATASET_VERSIONS ||--o{ TRAINING_RUNS : alimenta
+    DATASET_VERSIONS ||--o{ MODEL_VERSIONS : origina
+    TRAINING_RUNS ||--o| MODEL_VERSIONS : produz
+    MODEL_VERSIONS ||--o{ INSPECTIONS : classifica
+    INSPECTIONS ||--o| HUMAN_REVIEWS : recebe
+    IMAGE_SAMPLES o|--o{ HUMAN_REVIEWS : realimenta
+
+    RECIPES {
+        text id PK
+        text name
+        text part_type
+        text description
+        text root_path
+        json preprocessing_json
+        datetime updated_at
+    }
+
+    DATASET_VERSIONS {
+        integer id PK
+        text recipe_id FK
+        integer version_number
+        text status
+        datetime created_at
+        datetime closed_at
+    }
+
+    IMAGE_SAMPLES {
+        text id PK
+        text recipe_id FK
+        integer dataset_version_id FK
+        text label
+        text file_path
+        text source
+        text sha256
+        datetime captured_at
+        datetime deleted_at
+    }
+
+    TRAINING_RUNS {
+        text id PK
+        text recipe_id FK
+        integer dataset_version_id FK
+        text status
+        integer total_images
+        integer folds
+        json metrics_json
+        datetime finished_at
+    }
+
+    MODEL_VERSIONS {
+        text id PK
+        text recipe_id FK
+        integer dataset_version_id FK
+        text training_run_id FK
+        text file_path
+        text model_type
+        real confidence_threshold
+        boolean active
+    }
+
+    INSPECTIONS {
+        text id PK
+        text recipe_id FK
+        text model_id FK
+        text file_path
+        text predicted_label
+        real confidence
+        boolean requires_review
+        datetime created_at
+    }
+
+    HUMAN_REVIEWS {
+        text id PK
+        text inspection_id FK
+        text human_label
+        boolean corrected
+        text dataset_image_id FK
+        datetime reviewed_at
+    }
+
+    AUDIT_EVENTS {
+        integer id PK
+        text recipe_id FK
+        text event_type
+        json details_json
+        datetime created_at
+    }

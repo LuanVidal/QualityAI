@@ -1,0 +1,12 @@
+[project]
+name = "qualityai"
+version = "0.1.0"
+description = "Protótipo desktop para inspeção visual industrial com IA leve"
+requires-python = ">=3.11,<3.13"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.setuptools.package-data]
+qualityai = ["assets/*.png", "assets/fonts/*.ttf", "assets/fonts/OFL.txt", "schema.sql"]
